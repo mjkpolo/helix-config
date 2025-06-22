@@ -7,11 +7,12 @@
 (require "splash.scm")
 (require "focus.scm")
 
+(set-default-shell! "/bin/bash")
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Picking one from the possible themes is _fine_
-(define possible-themes '("focus_nova"))
-
+(define possible-themes '("catppuccin_mocha"))
 (define (select-random lst)
   (let ([index (rand::rng->gen-range 0 (length lst))]) (list-ref lst index)))
 
@@ -33,7 +34,7 @@
 ;; For example, this will make it impossible to enter insert mode:
 ;; (hash "normal" (hash "i" 'no_op))
 (keymap (global)
-        (normal (C-r (f ":recentf-open-files")) (space (l ":load-buffer") (o ":eval-sexpr"))))
+        (normal (C-r (f ":recentf-open-files") (t ":create-file-tree"))))
 
 (define scm-keybindings (hash "insert" (hash "ret" ':scheme-indent "C-l" ':insert-lambda)))
 
@@ -52,7 +53,7 @@
 
 (file-picker (fp-hidden #f))
 (cursorline #t)
-(soft-wrap (sw-enable #t))
+(soft-wrap (sw-enable #f))
 
 (randomly-pick-theme possible-themes)
 

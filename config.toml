@@ -1,18 +1,27 @@
-theme = "ayu_mirage"
+theme = "catppuccin_mocha"
 
-
-# create a new minor mode bound to `+`
-[keys.normal."+"]
-m = ":run-shell-command echo 2"
-c = ":run-shell-command cargo build"
-t = ":run-shell-command cargo test"
-n = ":run-shell-command echo 3"
+[editor]
+line-number = "relative"
+color-modes = true
+true-color = true
+bufferline = "always"
+cursorline = true
+clipboard-provider = "termcode"
 
 [editor.cursor-shape]
 insert = "bar"
 normal = "block"
 select = "underline"
 
+[editor.indent-guides]
+render = true
 
-[keys.normal.y]
-y = ["extend_to_line_bounds", "yank_main_selection_to_clipboard", "normal_mode", "collapse_selection"]
+[editor.lsp]
+display-messages = true
+
+[keys.normal]
+D = ["ensure_selections_forward", "extend_to_line_end", "delete_selection"]
+Y = ["yank_joined"]
+
+[keys.insert]
+"C-[" = "normal_mode"
