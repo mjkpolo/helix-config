@@ -1,0 +1,11 @@
+(require "helix/configuration.scm")
+(require "helix/misc.scm")
+(require (prefix-in helix.editor. "helix/editor.scm"))
+(require (prefix-in helix.static. "helix/static.scm"))
+
+(provide yank-and-replace-with-prev-yanked)
+(define (yank-and-replace-with-prev-yanked)
+  (define cur-reg (helix.editor.selected-register!))
+  (define old-yank (car (helix.editor.register->value cur-reg)))
+  (helix.static.yank)
+  (helix.static.replace-selection-with old-yank))

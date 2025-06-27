@@ -22,6 +22,7 @@
 (load-package "cogs/git-status-picker.scm")
 (load-package "cogs/scheme-indent.scm")
 (load-package "cogs/helix-ext.scm")
+(load-package "myplugins.scm")
 
 ;; Additional themes
 (load-package "cogs/themes/spacemacs.scm")

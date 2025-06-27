@@ -7,7 +7,7 @@
 (require "splash.scm")
 (require "focus.scm")
 
-(set-default-shell! "/bin/bash")
+(set-default-shell! "/opt/homebrew/bin/bash")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -26,15 +26,17 @@
 
 ;; Enable the recentf snapshot, will watch every 2 minutes for active files,
 ;; and flush those down to disk
-(recentf-snapshot)
+; (recentf-snapshot)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;; Keybindings ;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; To remove a binding, set it to 'no_op
 ;; For example, this will make it impossible to enter insert mode:
 ;; (hash "normal" (hash "i" 'no_op))
+; (keymap (global)
+;         (normal (C-r (f ":recentf-open-files") (t ":create-file-tree"))))
 (keymap (global)
-        (normal (C-r (f ":recentf-open-files") (t ":create-file-tree"))))
+        (normal (C-r yank-and-replace-with-prev-yanked)))
 
 (define scm-keybindings (hash "insert" (hash "ret" ':scheme-indent "C-l" ':insert-lambda)))
 
@@ -61,11 +63,13 @@
 (define-lsp "steel-language-server" (command "steel-language-server") (args '()))
 (define-lsp "rust-analyzer" (config (experimental (hash 'testExplorer #t))))
 
-;; New language definition
 (define-language "scheme"
-                 (formatter (command "raco") (args '("fmt" "-i")))
-                 (auto-format #true)
                  (language-servers '("steel-language-server")))
+;; New language definition
+; (define-language "scheme"
+;                  (formatter (command "raco") (args '("fmt" "-i")))
+;                  (auto-format #true)
+;                  (language-servers '("steel-language-server")))
 
 (when (equal? (command-line) '("hx"))
   (show-splash))
