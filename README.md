@@ -31,7 +31,7 @@ forge pkg install --git https://github.com/mattwparas/helix-config.git
 To install the `forge` CLI if you don't already have it, you can run the following:
 
 ```
-cargo install --git https://github.com/mattwparas/steel.git forge
+cargo install --git https://github.com/mattwparas/steel.git steel-forge
 ```
 
 Other libraries that can be found under the `cogs` directory include:
@@ -40,6 +40,11 @@ Other libraries that can be found under the `cogs` directory include:
 * File tree (which will soon be moved to its own repo) - `(cogs/file-tree.scm)`
 * Keybinding niceties - `(cogs/keymaps.scm)`
 * Spacemacs theme - `(cogs/themes/spacemacs.scm)`
+
+## Note: Windows users
+
+You will need a working version of strawberry perl installed on your machine to build the terminal library. See these
+[instructions](https://wezterm.org/install/source.html#building-on-windows) from wezterm for building on windows.
 
 ## Features
 
@@ -60,7 +65,7 @@ The terminal windows at the moment do not resize properly when the terminal is r
 In your `init.scm`, require the file and decide when to invoke the splash. In this case, I have the splash run when you open with no arguments:
 
 ```scheme
-(require "mattwparas-helix-config/splash.scm")
+(require "mattwparas-helix-package/splash.scm")
 
 (when (equal? (command-line) '("hx"))
   (show-splash))
@@ -69,7 +74,7 @@ In your `init.scm`, require the file and decide when to invoke the splash. In th
 ### Recent file picker
 
 ```scheme
-(require "mattwparas-helix-config/cogs/recentf.scm")
+(require "mattwparas-helix-package/cogs/recentf.scm")
 
 ;; Start the snapshotting in the background.
 (recentf-snapshot)

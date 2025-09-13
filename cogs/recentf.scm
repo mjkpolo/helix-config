@@ -32,7 +32,9 @@
   (cond
     ;; We're just storing these as strings with the quotes still there, so that we
     ;; can call `read` on them accordingly
-    [(path-exists? RECENTF-FILE) (~> (open-input-file RECENTF-FILE) (read-port-to-string) (read!))]
+    [(path-exists? RECENTF-FILE)
+
+     (call-with-input-file RECENTF-FILE (lambda (f) (~> f read-port-to-string read!)))]
     [else '()]))
 
 (define *recent-files* (read-recent-files))
@@ -66,11 +68,12 @@
 
 (define (flush-recent-files)
   ;; Open the output file, and then we'll write all the recent files down
-  (let ([output-file (open-output-file RECENTF-FILE)])
-    (map (lambda (line)
-           (when (string? line)
-             (write-line! output-file line)))
-         *recent-files*)))
+  (call-with-output-file RECENTF-FILE
+                         (lambda (output-file)
+                           (map (lambda (line)
+                                  (when (string? line)
+                                    (write-line! output-file line)))
+                                *recent-files*))))
 
 (define (helix-picker! pick-list)
   (push-component! (picker pick-list)))
