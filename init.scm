@@ -7,12 +7,12 @@
 (require "splash.scm")
 (require "focus.scm")
 
-(set-default-shell! "/opt/homebrew/bin/bash")
+; (set-default-shell! "/opt/homebrew/bin/bash")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Picking one from the possible themes is _fine_
-(define possible-themes '("catppuccin_mocha"))
+(define possible-themes '("rose_pine_moon"))
 (define (select-random lst)
   (let ([index (rand::rng->gen-range 0 (length lst))]) (list-ref lst index)))
 
